@@ -5,8 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WordParser"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="Приложение" Height="400" Width="400" WindowStartupLocation="CenterScreen">
+    <Window.DataContext>
+        <local:ViewModel/>
+    </Window.DataContext>
+    <Viewbox Stretch="Fill">
+        <Canvas Width="400" Height="400">
+            <Label Content="Шаг 1: Выбрать необходимый файл:" Canvas.Left="25" Canvas.Top="10"/>
+            <TextBox IsReadOnly="True" Height="23" Canvas.Left="25" TextWrapping="Wrap" Text="{Binding FilePath}" Canvas.Top="55" Width="314"/>
+            <Button Canvas.Left="344" Canvas.Top="55" Width="46" Height="23" Command="{Binding FilePathCommand}">
+                <Image Source="Models/filepng.png"></Image>
+            </Button>
+            <Label Content="Шаг 2: Указать возможную память:" Canvas.Left="25" Canvas.Top="95"/>
+            <Label Content="{Binding Path=CurrentRAM}" ContentStringFormat="Памяти свободно: {0}" Canvas.Left="25" Canvas.Top="134"/>
+            <Label Content="{Binding Path=TotalRAM}" Canvas.Left="212" ContentStringFormat="Памяти всего: {0}" Canvas.Top="134"/>
+            <ComboBox Canvas.Left="187" Canvas.Top="165" Width="165" ItemsSource="{Binding AcceptableMemories}" SelectedItem="{Binding SelectedMemory}"/>
+            <Label Content="Использование памяти: " Canvas.Left="38" Canvas.Top="160" Height="32"/>
+            <Label Content="Шаг 3: И наконец нажать на эту кнопку:" Canvas.Left="25" Canvas.Top="217"/>
+            <Button Content="ПУСК" Canvas.Left="277" Canvas.Top="223" Width="75" Command="{Binding BeginExecutionCommand}"/>
+
+
+        </Canvas>
+    </Viewbox>
 </Window>

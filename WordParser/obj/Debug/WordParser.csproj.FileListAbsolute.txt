@@ -12,6 +12,7 @@ C:\Users\Егор\source\repos\WordParser\WordParser\bin\Debug\System.Data.SQLit
 C:\Users\Егор\source\repos\WordParser\WordParser\obj\Debug\WordParser.csproj.AssemblyReference.cache
 C:\Users\Егор\source\repos\WordParser\WordParser\obj\Debug\MainWindow.g.cs
 C:\Users\Егор\source\repos\WordParser\WordParser\obj\Debug\App.g.cs
+C:\Users\Егор\source\repos\WordParser\WordParser\obj\Debug\GeneratedInternalTypeHelper.g.cs
 C:\Users\Егор\source\repos\WordParser\WordParser\obj\Debug\WordParser_MarkupCompile.cache
 C:\Users\Егор\source\repos\WordParser\WordParser\obj\Debug\WordParser_MarkupCompile.lref
 C:\Users\Егор\source\repos\WordParser\WordParser\obj\Debug\MainWindow.baml
@@ -22,3 +23,12 @@ C:\Users\Егор\source\repos\WordParser\WordParser\obj\Debug\WordParser.csproj
 C:\Users\Егор\source\repos\WordParser\WordParser\obj\Debug\WordParser.csproj.CopyComplete
 C:\Users\Егор\source\repos\WordParser\WordParser\obj\Debug\WordParser.exe
 C:\Users\Егор\source\repos\WordParser\WordParser\obj\Debug\WordParser.pdb
+C:\Users\Егор\source\repos\WordParser\WordParser\bin\Debug\Microsoft.Xaml.Behaviors.dll
+C:\Users\Егор\source\repos\WordParser\WordParser\bin\Debug\Prism.dll
+C:\Users\Егор\source\repos\WordParser\WordParser\bin\Debug\Prism.Wpf.dll
+C:\Users\Егор\source\repos\WordParser\WordParser\bin\Debug\Microsoft.Xaml.Behaviors.pdb
+C:\Users\Егор\source\repos\WordParser\WordParser\bin\Debug\Microsoft.Xaml.Behaviors.xml
+C:\Users\Егор\source\repos\WordParser\WordParser\bin\Debug\Prism.pdb
+C:\Users\Егор\source\repos\WordParser\WordParser\bin\Debug\Prism.xml
+C:\Users\Егор\source\repos\WordParser\WordParser\bin\Debug\Prism.Wpf.pdb
+C:\Users\Егор\source\repos\WordParser\WordParser\bin\Debug\Prism.Wpf.xml

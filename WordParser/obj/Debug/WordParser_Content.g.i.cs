@@ -8,6 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("models/database/model1.tt")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("models/filepng.png")]
 
 
