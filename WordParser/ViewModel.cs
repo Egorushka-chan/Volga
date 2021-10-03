@@ -33,7 +33,16 @@ namespace WordParser
             BeginExecutionCommand = new DelegateCommand(() =>
             {
                 HtmlFileParser htmlFileParser = new HtmlFileParser(FilePath, SelectedMemory);
+                htmlFileParser.Notify += ChangeCurrentState;
             }, () => SelectedMemory != 0 & FilePath != default);
+
+            ChangeCurrentState("Ожидание");
+        }
+
+        private void ChangeCurrentState(string message)
+        {
+            CurrentState = message;
+            RaisePropertyChanged(nameof(CurrentState));
         }
 
         public string CurrentRAM => Convert.ToString(_ramCounter.GetFreeRam() / 1024) + "МБ";
@@ -42,7 +51,13 @@ namespace WordParser
 
         public int[] AcceptableMemories => _ramCounter.GetAcceptableRangeOfRAM();
 
-        public int _selectedMemory;
+        public DelegateCommand FilePathCommand {get;}
+
+        public DelegateCommand BeginExecutionCommand {get;}
+
+        public string CurrentState {get;set;}
+
+        private int _selectedMemory;
         public int SelectedMemory
         {
             get => _selectedMemory;
@@ -66,8 +81,5 @@ namespace WordParser
             }
         }
 
-        public DelegateCommand FilePathCommand {get;}
-
-        public DelegateCommand BeginExecutionCommand {get;}
     }
 }

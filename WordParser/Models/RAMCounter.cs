@@ -11,7 +11,7 @@ namespace WordParser.Models
     {
         private ulong _totalRAM = 99999;     //общая память ОЗУ
         private ulong _freeRAM = 2048;      //свободная память ОЗУ
-        private int[] _acceptableRangeRAM; //какую память можно дать дать программе
+        private int[] _acceptableRangeRAM; //какую память можно дать программе
 
         public RAMCounter()
         {

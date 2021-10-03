@@ -1,61 +1,83 @@
-﻿using System;
+﻿using Prism.Mvvm;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows;
 using WordParser.Models.Database;
 
 namespace WordParser.Models
 {
-    class HtmlFileParser
+    class HtmlFileParser : BindableBase
     {
+        public delegate void MessageHandler(string message);
+        public event MessageHandler Notify;
         public HtmlFileParser(string filePath, int memorySize)
         {
-            DBAccessor accessor = new DBAccessor();
-
-            ulong maxCapacity = ((ulong)memorySize * 1024 * 1024) / 2;
-            StringBuilder stringBuilder = new StringBuilder(50, (int)maxCapacity);
-
-            using (StreamReader streamReader = new StreamReader(filePath))
+            if (!IsNotExecuting)
             {
-                try
-                {
-                    string page = "";
-                    int i = 0;
-                    string line;
-                    while ((line = streamReader.ReadLine()) != null & i < 1000)
-                    {
-                        page += line;
-                    }
+                IsNotExecuting = false;
+                Task calc = new Task(() =>{ 
+                DBAccessor accessor = new DBAccessor();
 
-                    string[] clearPage = ClearHtml(page);
-                    foreach (string word in clearPage)
+                ulong maxCapacity = ((ulong)memorySize * 1024 * 1024) / 2;
+                StringBuilder stringBuilder = new StringBuilder(50, (int)maxCapacity);
+
+                using (StreamReader streamReader = new StreamReader(filePath))
+                {
+                    try
+                    {   
+                        string line;
+                        string page = "";
+                        string[] clearPage;
+                        int currentRow = 1;
+                        while ((line = streamReader.ReadLine()) != null)
+                        {
+                            page += line;
+                            Notify?.Invoke($"Прочитана строка: {currentRow}");
+                            currentRow++;
+                        }
+
+                        Notify?.Invoke($"Обработка");
+                        clearPage = ClearHtml(page);
+                        foreach (string word in clearPage)
+                        {
+                            stringBuilder.Append(word + ";");
+                        }
+                    
+                    }
+                    catch (OutOfMemoryException)
                     {
-                        stringBuilder.Append(word + ";");
+                        accessor.InsertWords(GetResult(stringBuilder.ToString()));
+                        stringBuilder = HandleExeption(stringBuilder, (int)maxCapacity);
+                    }
+                    catch (ArgumentOutOfRangeException)
+                    {
+                        accessor.InsertWords(GetResult(stringBuilder.ToString()));
+                        stringBuilder = HandleExeption(stringBuilder, (int)maxCapacity);
                     }
                 }
-                catch (OutOfMemoryException)
-                {
+                    Notify?.Invoke($"Добавление");
                     accessor.InsertWords(GetResult(stringBuilder.ToString()));
-                    streamReader.Close();
-                    GC.Collect();
-                    stringBuilder = new StringBuilder(50, (int)maxCapacity);
-                }
-                catch (ArgumentOutOfRangeException)
-                {
-                    accessor.InsertWords(GetResult(stringBuilder.ToString()));
-                    streamReader.Close();
-                    GC.Collect();
-                    stringBuilder = new StringBuilder(50, (int)maxCapacity);
-                }
+                });
+
+                calc.Start();
+                Notify?.Invoke($"Выполнено");
+                IsNotExecuting = true;
             }
-
-            accessor.InsertWords(GetResult(stringBuilder.ToString()));
         }
-            
+
+        StringBuilder HandleExeption(StringBuilder builder, int maxCapacity)
+        {
+            builder.Clear();
+            GC.Collect();
+            builder = new StringBuilder(50, (int)maxCapacity);
+            return builder;
+        }
 
         string[] ClearHtml(string text)
         {
@@ -101,5 +123,7 @@ namespace WordParser.Models
             }
             return wordsList;
         }
+
+        public static bool IsNotExecuting {get; private set;}
     }
 }

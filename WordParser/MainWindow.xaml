@@ -23,6 +23,7 @@
             <Label Content="Использование памяти: " Canvas.Left="38" Canvas.Top="160" Height="32"/>
             <Label Content="Шаг 3: И наконец нажать на эту кнопку:" Canvas.Left="25" Canvas.Top="217"/>
             <Button Content="ПУСК" Canvas.Left="277" Canvas.Top="223" Width="75" Command="{Binding BeginExecutionCommand}"/>
+            <Label Content="{Binding CurrentState}" ContentStringFormat="Текущее состояние: {0}" Canvas.Left="86" Canvas.Top="248"/>
 
 
         </Canvas>

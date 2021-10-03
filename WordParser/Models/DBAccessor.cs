@@ -39,7 +39,8 @@ namespace WordParser.Models
 
             foreach (var word in dictWords)
             {
-                if (globalWords.Where(x => x.SessionID == _sessionID & x.Text == word.Key).FirstOrDefault() == default)
+                var existingWord = globalWords.Where(x => x.SessionID == _sessionID & x.Text == word.Key).FirstOrDefault();
+                if (existingWord == default)
                     globalWords.Add(new Word
                     {
                         ID = maxID,
@@ -49,7 +50,7 @@ namespace WordParser.Models
                     });
                 else
                 {
-                    globalWords.Where(x => x.SessionID == _sessionID & x.Text == word.Key).First().Count += word.Value;
+                    existingWord.Count += word.Value;
                 }
             }
             context.SaveChanges();
